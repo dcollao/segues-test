@@ -14,12 +14,31 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    @IBAction func loadRed(sender: AnyObject!){
+        //Use sender to pass data
+        let str = "Hey, we just came  from the yellow screen!"
+        performSegueWithIdentifier("goToRed", sender: str)
+    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func loadYellow(sender: AnyObject!){
+        performSegueWithIdentifier("goToYellow", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //this is were you do work right before this view loads <---
+        // keep in mind ** the next view controller has already been initialized but isnt visible in the screen
+        if segue.identifier == "goToRed"{
+            if let redViewController = segue.destinationViewController as? RedViewController {
+                if let theString = sender as? String {
+                    redViewController.transferText = theString
+                }
+            }
+        }
+        
+        }
     }
 
 
-}
 
